@@ -65,7 +65,7 @@ Usuário:
 Transações:
 
 # json
-    ```
+    ```bash
 {
   "id": 1,
   "user_id": 1,
