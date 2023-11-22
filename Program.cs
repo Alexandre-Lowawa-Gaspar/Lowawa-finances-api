@@ -1,4 +1,6 @@
 global using Lowawa_finances_api.Models;
+global using Lowawa_finances_api.Dto.TransationDto;
+global using Lowawa_finances_api.Dto.UserDto;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
