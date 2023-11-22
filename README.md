@@ -65,7 +65,7 @@ Usuário:
 Transações:
 
 # json
-    ```bash
+
 {
   "id": 1,
   "user_id": 1,
@@ -75,10 +75,10 @@ Transações:
   "date": "2023-11-22",
   "category": "alimentacao"
 }
-    ```
+
 # json
 
-    ```bash
+
 {
   "id": 2,
   "user_id": 1,
@@ -88,7 +88,7 @@ Transações:
   "date": "2023-11-15",
   "category": "salario"
 }
-    ```
+
 
 ## Contribuições
 
