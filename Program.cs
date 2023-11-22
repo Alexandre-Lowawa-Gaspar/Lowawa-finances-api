@@ -1,3 +1,4 @@
+global using Lowawa_finances_api.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lowawa_finances_api.Models
 {
-    public enum CategoryTransation
+    public enum CategoryTransaction
     {
         [JsonConverter(typeof(JsonStringEnumConverter))]
         Salário = 1,
