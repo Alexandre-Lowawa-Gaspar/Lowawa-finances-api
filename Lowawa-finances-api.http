@@ -1,0 +1,6 @@
+@Lowawa_finances_api_HostAddress = http://localhost:5223
+
+GET {{Lowawa_finances_api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
