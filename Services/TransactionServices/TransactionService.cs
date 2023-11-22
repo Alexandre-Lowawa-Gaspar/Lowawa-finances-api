@@ -49,7 +49,7 @@ namespace Lowawa_finances_api.Services.TransactionServices
             return servicesResponse;
         }
 
-        public async Task<ServicesResponse<GetTransactionDto>> GetTransactionByUser(int userId)
+        public async Task<ServicesResponse<GetTransactionDto>> GetTransactionByUserId(int userId)
         {
             var servicesResponse = new ServicesResponse<GetTransactionDto>();
             var transaction = transactions.FirstOrDefault(x => x.UserId == userId);
