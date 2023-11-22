@@ -7,64 +7,64 @@ namespace Lowawa_finances_api.Services.TransactionServices
 {
     public class TransactionService : ITransactionService
     {
-        private static List<Transaction> transictions = new List<Transaction>();
+        private static List<Transaction> transactions = new List<Transaction>();
         private readonly IMapper _mapper;
 
         public TransactionService(IMapper mapper)
         {
             _mapper = mapper;
         }
-        public async Task<ServicesResponse<List<GetTransactionDto>>> AddTransiction(AddTransactionDto newTransiction)
+        public async Task<ServicesResponse<List<GetTransactionDto>>> AddTransaction(AddTransactionDto newtransaction)
         {
             var servicesResponse = new ServicesResponse<List<GetTransactionDto>>();
 
-            var transiction = _mapper.Map<Transaction>(newTransiction);
-            transiction.Id = transictions.Max(x => x.Id) + 1;
-            transictions.Add(transiction);
-            servicesResponse.Data = transictions.Select(x => _mapper.Map<GetTransactionDto>(x)).ToList();
+            var transaction = _mapper.Map<Transaction>(newtransaction);
+            transaction.Id = transactions.Max(x => x.Id) + 1;
+            transactions.Add(transaction);
+            servicesResponse.Data = transactions.Select(x => _mapper.Map<GetTransactionDto>(x)).ToList();
             return servicesResponse;
         }
 
-        public async Task<ServicesResponse<List<GetTransactionDto>>> DeleteTransiction(int id)
+        public async Task<ServicesResponse<List<GetTransactionDto>>> DeleteTransaction(int id)
         {
             var servicesResponse = new ServicesResponse<List<GetTransactionDto>>();
-            var transiction = transictions.First(x => x.Id == id);
-            transictions.Remove(transiction);
-            servicesResponse.Data = transictions.Select(c => _mapper.Map<GetTransactionDto>(c)).ToList();
+            var transaction = transactions.First(x => x.Id == id);
+            transactions.Remove(transaction);
+            servicesResponse.Data = transactions.Select(c => _mapper.Map<GetTransactionDto>(c)).ToList();
             return servicesResponse;
         }
 
-        public async Task<ServicesResponse<List<GetTransactionDto>>> GetAllTransiction()
+        public async Task<ServicesResponse<List<GetTransactionDto>>> GetAllTransaction()
         {
             var servicesResponse = new ServicesResponse<List<GetTransactionDto>>();
-            servicesResponse.Data = transictions.Select(x => _mapper.Map<GetTransactionDto>(x)).ToList();
+            servicesResponse.Data = transactions.Select(x => _mapper.Map<GetTransactionDto>(x)).ToList();
             return servicesResponse;
         }
 
-        public async Task<ServicesResponse<GetTransactionDto>> GetTransictionById(int id)
+        public async Task<ServicesResponse<GetTransactionDto>> GetTransactionById(int id)
         {
             var servicesResponse = new ServicesResponse<GetTransactionDto>();
-            var transiction = transictions.FirstOrDefault(c => c.Id == id);
-            servicesResponse.Data = _mapper.Map<GetTransactionDto>(transiction);
+            var transaction = transactions.FirstOrDefault(c => c.Id == id);
+            servicesResponse.Data = _mapper.Map<GetTransactionDto>(transaction);
             return servicesResponse;
         }
 
-        public async Task<ServicesResponse<GetTransactionDto>> GetTransictionByUser(int userId)
+        public async Task<ServicesResponse<GetTransactionDto>> GetTransactionByUser(int userId)
         {
             var servicesResponse = new ServicesResponse<GetTransactionDto>();
-            var transiction = transictions.FirstOrDefault(x => x.UserId == userId);
-            servicesResponse.Data = _mapper.Map<GetTransactionDto>(transiction);
+            var transaction = transactions.FirstOrDefault(x => x.UserId == userId);
+            servicesResponse.Data = _mapper.Map<GetTransactionDto>(transaction);
             return servicesResponse;
         }
 
-        public async Task<ServicesResponse<List<GetTransactionDto>>> UpdateTransiction(UpdateTransactionDto updateTransiction)
+        public async Task<ServicesResponse<List<GetTransactionDto>>> UpdateTransaction(UpdateTransactionDto updatetransaction)
         {
             var servicesResponse = new ServicesResponse<List<GetTransactionDto>>();
-            var transiction = transictions.FirstOrDefault(x => x.Id == updateTransiction.Id);
-            if (transiction is null)
-                throw new Exception($"Transition with Id{updateTransiction.Id} not found.");
-            _mapper.Map(updateTransiction, transiction);
-            servicesResponse.Data = transictions.Select(x => _mapper.Map<GetTransactionDto>(x)).ToList();
+            var transaction = transactions.FirstOrDefault(x => x.Id == updatetransaction.Id);
+            if (transaction is null)
+                throw new Exception($"Transation with Id{updatetransaction.Id} not found.");
+            _mapper.Map(updatetransaction, transaction);
+            servicesResponse.Data = transactions.Select(x => _mapper.Map<GetTransactionDto>(x)).ToList();
             return servicesResponse;
         }
     }

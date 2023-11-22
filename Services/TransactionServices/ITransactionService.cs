@@ -7,12 +7,12 @@ namespace Lowawa_finances_api.Services.TransactionServices
 {
     public interface ITransactionService
     {
-        Task<ServicesResponse<List<GetTransactionDto>>> AddTransiction(AddTransactionDto newTransiction);
-        Task<ServicesResponse<List<GetTransactionDto>>> GetAllTransiction();
-        Task<ServicesResponse<GetTransactionDto>> GetTransictionById(int id);
-        Task<ServicesResponse<GetTransactionDto>> GetTransictionByUser(int userId);
-        Task<ServicesResponse<List<GetTransactionDto>>> UpdateTransiction(UpdateTransactionDto updateTransiction);
-       Task<ServicesResponse<List<GetTransactionDto>>> DeleteTransiction(int id);
+        Task<ServicesResponse<List<GetTransactionDto>>> AddTransaction(AddTransactionDto newTransaction);
+        Task<ServicesResponse<List<GetTransactionDto>>> GetAllTransaction();
+        Task<ServicesResponse<GetTransactionDto>> GetTransactionById(int id);
+        Task<ServicesResponse<GetTransactionDto>> GetTransactionByUser(int userId);
+        Task<ServicesResponse<List<GetTransactionDto>>> UpdateTransaction(UpdateTransactionDto updateTransaction);
+       Task<ServicesResponse<List<GetTransactionDto>>> DeleteTransaction(int id);
 
 
     }
