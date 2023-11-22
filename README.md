@@ -54,18 +54,18 @@ Lowawa-finances-api é um projeto open source desenvolvido em ASP.NET Web API, o
 Usuário:
 
 # json
-    ```bash
-{
+    ```
+    {
   "id": 1,
   "username": "usuario_exemplo",
   "password": "hash_senha"
-}
+   }
     ```
 
 Transações:
 
 # json
-    ```bash
+    ```
 {
   "id": 1,
   "user_id": 1,
