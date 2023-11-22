@@ -51,10 +51,9 @@ Lowawa-finances-api é um projeto open source desenvolvido em ASP.NET Web API, o
   * category (string, opcional): Categoria da transação.
 
 # Exemplo de Dados
-Usuário:
+* Usuário:
 
-# json
-  
+ * json
  {
   "id": 1,
   "username": "usuario_exemplo",
@@ -62,10 +61,9 @@ Usuário:
    }
 
 
-Transações:
+ * Transações:
 
-# json
-
+  * json
 {
   "id": 1,
   "user_id": 1,
@@ -75,10 +73,7 @@ Transações:
   "date": "2023-11-22",
   "category": "alimentacao"
 }
-
-# json
-
-
+  * json
 {
   "id": 2,
   "user_id": 1,
