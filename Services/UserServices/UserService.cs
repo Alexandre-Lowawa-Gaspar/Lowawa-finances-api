@@ -18,7 +18,10 @@ namespace Lowawa_finances_api.Services.UserServices
         {
             var servicesResponse = new ServicesResponse<List<GetUserDto>>();
             var user = _mapper.Map<User>(newUser);
-            user.Id = users.Max(x => x.Id) + 1;
+            if(users.Count==0)
+            user.Id = 1;
+            else
+            user.Id=users.Max(x => x.Id)+1;
             users.Add(user);
             servicesResponse.Data = users.Select(c => _mapper.Map<GetUserDto>(c)).ToList();
             return servicesResponse;
@@ -36,7 +39,14 @@ namespace Lowawa_finances_api.Services.UserServices
         public async Task<ServicesResponse<List<GetUserDto>>> GetAllUser()
         {
             var servicesResponse = new ServicesResponse<List<GetUserDto>>();
+
+            try
+            {
             servicesResponse.Data = users.Select(c => _mapper.Map<GetUserDto>(c)).ToList();
+            }catch(Exception ex){
+                servicesResponse.Success = false;
+                servicesResponse.Message = ex.Message.Replace("'", "");
+            }
             return servicesResponse;
         }
 

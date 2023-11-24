@@ -12,8 +12,7 @@ namespace Lowawa_finances_api.Services.TransactionServices
         Task<ServicesResponse<GetTransactionDto>> GetTransactionById(int id);
         Task<ServicesResponse<GetTransactionDto>> GetTransactionByUserId(int userId);
         Task<ServicesResponse<List<GetTransactionDto>>> UpdateTransaction(UpdateTransactionDto updateTransaction);
-       Task<ServicesResponse<List<GetTransactionDto>>> DeleteTransaction(int id);
-
+        Task<ServicesResponse<List<GetTransactionDto>>> DeleteTransaction(int id);
 
     }
 }

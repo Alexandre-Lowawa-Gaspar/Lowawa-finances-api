@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Lowawa_finances_api.Services.UserServices;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Lowawa_finances_api.Controller
+namespace Lowawa_finances_api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

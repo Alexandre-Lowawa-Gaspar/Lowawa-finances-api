@@ -19,7 +19,16 @@ namespace Lowawa_finances_api.Services.TransactionServices
             var servicesResponse = new ServicesResponse<List<GetTransactionDto>>();
 
             var transaction = _mapper.Map<Transaction>(newtransaction);
-            transaction.Id = transactions.Max(x => x.Id) + 1;
+            if (transaction.UserId <= 0)
+            {
+                servicesResponse.Success = false;
+                servicesResponse.Message= new Exception("You need a User to make a transaction.").Message;
+                return servicesResponse;
+            }
+            if (transactions.Count == 0)
+                transaction.Id = 1;
+            else
+                transaction.Id = transactions.Max(x => x.Id) + 1;
             transactions.Add(transaction);
             servicesResponse.Data = transactions.Select(x => _mapper.Map<GetTransactionDto>(x)).ToList();
             return servicesResponse;
@@ -40,6 +49,7 @@ namespace Lowawa_finances_api.Services.TransactionServices
             servicesResponse.Data = transactions.Select(x => _mapper.Map<GetTransactionDto>(x)).ToList();
             return servicesResponse;
         }
+
 
         public async Task<ServicesResponse<GetTransactionDto>> GetTransactionById(int id)
         {

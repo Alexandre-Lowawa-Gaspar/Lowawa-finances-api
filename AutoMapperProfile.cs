@@ -9,7 +9,7 @@ namespace Lowawa_finances_api
     {
         public AutoMapperProfile()
         {
-            CreateMap<Transaction,GetUserDto>();
+            CreateMap<Transaction,GetTransactionDto>();
             CreateMap<AddTransactionDto,Transaction>();
             CreateMap<UpdateTransactionDto,Transaction>();
             CreateMap<User,GetUserDto>();
