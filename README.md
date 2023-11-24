@@ -69,7 +69,7 @@ Lowawa-finances-api é um projeto open source desenvolvido em ASP.NET Web API, o
   "user_id": 1,
   "description": "Compra de mantimentos",
   "amount": 50.00,
-  "type": "expense",
+  "type": "Despesa",
   "date": "2023-11-22",
   "category": "alimentacao"
 }
@@ -79,7 +79,7 @@ Lowawa-finances-api é um projeto open source desenvolvido em ASP.NET Web API, o
   "user_id": 1,
   "description": "Salário",
   "amount": 2000.00,
-  "type": "income",
+  "type": "Receita",
   "date": "2023-11-15",
   "category": "salario"
 }
