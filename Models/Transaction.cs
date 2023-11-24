@@ -14,7 +14,7 @@ namespace Lowawa_finances_api.Models
         public decimal Amount { get; set; }
         public TypeTransaction Type { get; set; } = TypeTransaction.Receita;
         public DateTime Date { get; set; }
-        public CategoryTransaction Category{get;set;} = CategoryTransaction.Salário;
+        public CategoryTransaction Category{get;set;} = CategoryTransaction.Salario;
 
     }
 }

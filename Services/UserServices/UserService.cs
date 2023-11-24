@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Lowawa_finances_api.Services.UserServices
@@ -22,6 +24,8 @@ namespace Lowawa_finances_api.Services.UserServices
             try
             {
                 var user = _mapper.Map<User>(newUser);
+                if (user.Password is not null)
+                    user.Password = HashSHA256(user.Password);
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
                 servicesResponse.Data = await _context.Users.Select(c => _mapper.Map<GetUserDto>(c)).ToListAsync();
@@ -108,6 +112,22 @@ namespace Lowawa_finances_api.Services.UserServices
                 servicesResponse.Message = ex.Message.Replace("'", "");
             }
             return servicesResponse;
+        }
+        public static string HashSHA256(string input)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(input);
+                byte[] hashBytes = sha256.ComputeHash(bytes);
+
+                StringBuilder stringBuilder = new StringBuilder();
+                foreach (byte b in hashBytes)
+                {
+                    stringBuilder.Append(b.ToString("x2"));
+                }
+
+                return stringBuilder.ToString();
+            }
         }
     }
 }
