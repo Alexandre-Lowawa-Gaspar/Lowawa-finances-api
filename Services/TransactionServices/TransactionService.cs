@@ -7,46 +7,76 @@ namespace Lowawa_finances_api.Services.TransactionServices
 {
     public class TransactionService : ITransactionService
     {
-        private static List<Transaction> transactions = new List<Transaction>();
-        private readonly IMapper _mapper;
 
-        public TransactionService(IMapper mapper)
+        private readonly IMapper _mapper;
+        private readonly DataContext _context;
+
+        public TransactionService(IMapper mapper, DataContext context)
         {
             _mapper = mapper;
+            _context = context;
         }
         public async Task<ServicesResponse<List<GetTransactionDto>>> AddTransaction(AddTransactionDto newtransaction)
         {
             var servicesResponse = new ServicesResponse<List<GetTransactionDto>>();
+            try
+            {
 
-            var transaction = _mapper.Map<Transaction>(newtransaction);
-            if (transaction.UserId <= 0)
+                var transaction = _mapper.Map<Transaction>(newtransaction);
+                if (transaction.UserId <= 0)
+                {
+                    servicesResponse.Success = false;
+                    servicesResponse.Message = new Exception("You need a User to make a transaction.").Message;
+                    return servicesResponse;
+                }
+
+                _context.Transactions.Add(transaction);
+                await _context.SaveChangesAsync();
+                servicesResponse.Data = await _context.Transactions.Select(x => _mapper.Map<GetTransactionDto>(x)).ToListAsync();
+            }
+            catch (Exception ex)
             {
                 servicesResponse.Success = false;
-                servicesResponse.Message= new Exception("You need a User to make a transaction.").Message;
-                return servicesResponse;
+                servicesResponse.Message = ex.Message.Replace("'", "");
             }
-            if (transactions.Count == 0)
-                transaction.Id = 1;
-            else
-                transaction.Id = transactions.Max(x => x.Id) + 1;
-            transactions.Add(transaction);
-            servicesResponse.Data = transactions.Select(x => _mapper.Map<GetTransactionDto>(x)).ToList();
             return servicesResponse;
         }
 
         public async Task<ServicesResponse<List<GetTransactionDto>>> DeleteTransaction(int id)
         {
             var servicesResponse = new ServicesResponse<List<GetTransactionDto>>();
-            var transaction = transactions.First(x => x.Id == id);
-            transactions.Remove(transaction);
-            servicesResponse.Data = transactions.Select(c => _mapper.Map<GetTransactionDto>(c)).ToList();
+            try
+            {
+                var transaction = await _context.Transactions.FirstOrDefaultAsync(x => x.Id == id);
+                if(transaction is null){
+                    servicesResponse.Success=false;
+                    servicesResponse.Message = new Exception($"The transaction with Id {id} was not found.").Message.Replace("'","");
+                    return servicesResponse;
+                }
+                _context.Transactions.Remove(transaction);
+                await _context.SaveChangesAsync();
+                servicesResponse.Data = await _context.Transactions.Select(c => _mapper.Map<GetTransactionDto>(c)).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                servicesResponse.Success = false;
+                servicesResponse.Message = ex.Message.Replace("'", "");
+            }
             return servicesResponse;
         }
 
         public async Task<ServicesResponse<List<GetTransactionDto>>> GetAllTransaction()
         {
             var servicesResponse = new ServicesResponse<List<GetTransactionDto>>();
-            servicesResponse.Data = transactions.Select(x => _mapper.Map<GetTransactionDto>(x)).ToList();
+            try
+            {
+                servicesResponse.Data = await _context.Transactions.Select(x => _mapper.Map<GetTransactionDto>(x)).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                servicesResponse.Success = false;
+                servicesResponse.Message = ex.Message.Replace("'", "");
+            }
             return servicesResponse;
         }
 
@@ -54,27 +84,52 @@ namespace Lowawa_finances_api.Services.TransactionServices
         public async Task<ServicesResponse<GetTransactionDto>> GetTransactionById(int id)
         {
             var servicesResponse = new ServicesResponse<GetTransactionDto>();
-            var transaction = transactions.FirstOrDefault(c => c.Id == id);
-            servicesResponse.Data = _mapper.Map<GetTransactionDto>(transaction);
+            try
+            {
+                var transaction = await _context.Transactions.FirstOrDefaultAsync(c => c.Id == id);
+                servicesResponse.Data = _mapper.Map<GetTransactionDto>(transaction);
+            }
+            catch (Exception ex)
+            {
+                servicesResponse.Success = false;
+                servicesResponse.Message = ex.Message.Replace("'", "");
+            }
             return servicesResponse;
         }
 
         public async Task<ServicesResponse<GetTransactionDto>> GetTransactionByUserId(int userId)
         {
             var servicesResponse = new ServicesResponse<GetTransactionDto>();
-            var transaction = transactions.FirstOrDefault(x => x.UserId == userId);
-            servicesResponse.Data = _mapper.Map<GetTransactionDto>(transaction);
+            try
+            {
+                var transaction = await _context.Transactions.FirstOrDefaultAsync(x => x.UserId == userId);
+                servicesResponse.Data = _mapper.Map<GetTransactionDto>(transaction);
+            }
+            catch (Exception ex)
+            {
+                servicesResponse.Success = false;
+                servicesResponse.Message = ex.Message.Replace("'", "");
+            }
             return servicesResponse;
         }
 
         public async Task<ServicesResponse<List<GetTransactionDto>>> UpdateTransaction(UpdateTransactionDto updatetransaction)
         {
             var servicesResponse = new ServicesResponse<List<GetTransactionDto>>();
-            var transaction = transactions.FirstOrDefault(x => x.Id == updatetransaction.Id);
-            if (transaction is null)
-                throw new Exception($"Transation with Id{updatetransaction.Id} not found.");
-            _mapper.Map(updatetransaction, transaction);
-            servicesResponse.Data = transactions.Select(x => _mapper.Map<GetTransactionDto>(x)).ToList();
+            try
+            {
+                var transaction = await _context.Transactions.FirstOrDefaultAsync(x => x.Id == updatetransaction.Id);
+                if (transaction is null)
+                    throw new Exception($"Transation with Id{updatetransaction.Id} not found.");
+                _mapper.Map(updatetransaction, transaction);
+                await _context.SaveChangesAsync();
+                servicesResponse.Data = await _context.Transactions.Select(x => _mapper.Map<GetTransactionDto>(x)).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                servicesResponse.Success = false;
+                servicesResponse.Message = ex.Message.Replace("'", "");
+            }
             return servicesResponse;
         }
     }
