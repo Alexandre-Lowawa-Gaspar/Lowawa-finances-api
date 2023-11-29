@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Lowawa_finances_api.Services.TransactionServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lowawa_finances_api.Controller
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class TransactionController : ControllerBase

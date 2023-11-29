@@ -3,9 +3,11 @@ global using Lowawa_finances_api.Dto.TransationDto;
 global using Lowawa_finances_api.Dto.UserDto;
 global using AutoMapper;
 global using Lowawa_finances_api.Services.TransactionServices;
-global using Lowawa_finances_api.Services.UserServices;
 global using Microsoft.EntityFrameworkCore;
 global using Lowawa_finances_api.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,7 +19,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<ITransactionService, TransactionService>();
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
+AddJwtBearer(options=>{
+    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters{
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value!)),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,6 +38,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

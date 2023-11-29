@@ -38,7 +38,7 @@ namespace Lowawa_finances_api.Data
             }
             else
             {
-                response.Data = user.Id.ToString();
+                response.Data =CreateToken(user);
             }
             return response;
         }
