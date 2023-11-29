@@ -23,7 +23,7 @@ namespace Lowawa_finances_api.Services.TransactionServices
             {
 
                 var transaction = _mapper.Map<Transaction>(newtransaction);
-                if (transaction.UserId <= 0)
+                if (transaction.User.Id <= 0)
                 {
                     servicesResponse.Success = false;
                     servicesResponse.Message = new Exception("You need a User to make a transaction.").Message;
@@ -102,7 +102,7 @@ namespace Lowawa_finances_api.Services.TransactionServices
             var servicesResponse = new ServicesResponse<GetTransactionDto>();
             try
             {
-                var transaction = await _context.Transactions.FirstOrDefaultAsync(x => x.UserId == userId);
+                var transaction = await _context.Transactions.FirstOrDefaultAsync(x => x.User.Id == userId);
                 servicesResponse.Data = _mapper.Map<GetTransactionDto>(transaction);
             }
             catch (Exception ex)

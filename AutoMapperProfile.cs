@@ -12,9 +12,6 @@ namespace Lowawa_finances_api
             CreateMap<Transaction,GetTransactionDto>();
             CreateMap<AddTransactionDto,Transaction>();
             CreateMap<UpdateTransactionDto,Transaction>();
-            CreateMap<User,GetUserDto>();
-            CreateMap<AddUserDto,User>();
-            CreateMap<UpdateUserDto,User>();
         }
     }
 }
