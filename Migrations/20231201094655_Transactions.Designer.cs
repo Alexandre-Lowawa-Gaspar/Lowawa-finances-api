@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lowawa_finances_api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231129114436_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231201094655_Transactions")]
+    partial class Transactions
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

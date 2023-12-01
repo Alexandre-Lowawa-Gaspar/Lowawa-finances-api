@@ -28,17 +28,12 @@ namespace Lowawa_finances_api.Controller
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<ServicesResponse<GetTransactionDto>>> GetById(int id)
         {
-            return Ok(await _transactionService.GetTransactionById(id));
-        }
-
-        [HttpGet("GetByUserId/{id}")]
-        public async Task<ActionResult<ServicesResponse<GetTransactionDto>>> GetByUserId(int userId)
-        {
-            var response = await _transactionService.GetTransactionByUserId(userId);
-            if (response is null)
+             var response =await _transactionService.GetTransactionById(id);
+             if (response is null)
                 return NotFound(response);
             return Ok(response);
         }
+
         [HttpPost]
         public async Task<ActionResult<ServicesResponse<List<GetTransactionDto>>>> Add(AddTransactionDto newTransation)
         {
