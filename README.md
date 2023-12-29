@@ -20,7 +20,7 @@ Lowawa-finances-api é um projeto open source desenvolvido em ASP.NET Web API, o
 
 1. **Clone o repositório:**
     ```bash
-    git clone https://github.com//api-financas.git
+    git clone https://github.com/Alexandre-Lowawa-Gaspar/Lowawa-finances-api.git
     cd api-financas
     ```
 
